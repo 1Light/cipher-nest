@@ -1,0 +1,35 @@
+# Virtual Environment
+venv/
+
+# Notes
+notes.md
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+db.sqlite3
+*.sqlite3
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+local_settings.py
+settings.pyc
+media/
+
+# Node
+node_modules/
+npm-debug.log
+package-lock.json
+yarn-debug.log
+yarn-error.log
+
+# Django static files (compiled from Sass, etc.)
+encryption/static/css/styles.css
+encryption/static/js/scripts.js

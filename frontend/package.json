@@ -1,0 +1,27 @@
+{
+  "name": "cipher-nest",
+  "version": "1.0.0",
+  "description": "A web application for encryption and decryption using OTP, 3DES, and AES algorithms.",
+  "keywords": [
+    "django",
+    "bootstrap",
+    "sass"
+  ],
+  "license": "ISC",
+  "author": "Nasir Adem",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "sass --watch scss:/static/css"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "autoprefixer": "^10.4.21",
+    "bootstrap": "^5.3.3",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.0"
+  },
+  "devDependencies": {
+    "sass": "^1.85.1"
+  }
+}
