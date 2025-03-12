@@ -1,0 +1,18 @@
+@use '../custom' as *;
+
+.cipher-section {
+    margin-top: 12rem;
+    border: 2px solid $black;
+
+    &-row {
+        border: 2px solid $black;
+
+        .column-1 {
+            border: 2px solid $gray-300;
+        }
+
+        .column-2 {
+            border: 2px solid $gray-300;
+        }
+    }
+}
