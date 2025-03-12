@@ -1,18 +1,64 @@
 @use '../custom' as *;
 
 .cipher-section {
-    margin-top: 12rem;
-    border: 2px solid $black;
+    margin: 15rem 0 5rem 0;
 
-    &-row {
-        border: 2px solid $black;
+    &-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        height: 95vh;
+        padding: 2.5rem;
 
-        .column-1 {
-            border: 2px solid $gray-300;
+        .column {
+            display: flex;
+            height: 100%;
+            gap: 2rem;
+
+            &-1, &-2 {
+                border: 2px solid $primary;
+                min-width: 45%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem;
+    
+                textarea {
+                    margin-top: 1rem;
+                    width: 100%;
+                }
+    
+                .key-box {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    margin-top: 1rem;
+                    
+                    input {
+                        display: block;
+                        margin-left: 5rem;
+                    }
+                }
+    
+                .button-box {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    margin-top: 1rem;
+                }
+            }
         }
 
-        .column-2 {
-            border: 2px solid $gray-300;
+        .algorithm-option-box {
+            display: flex;
+            width: 50%;
+            justify-content: space-between;
+            align-items: center;
         }
     }
 }

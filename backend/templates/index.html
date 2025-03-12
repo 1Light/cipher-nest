@@ -13,14 +13,44 @@
   <body>
     <section class="cipher-section">
         <div class="container">
-            <div class="cipher-section-row">
-                <div class="column-1">
-                    <h1>Column 1</h1>
+          <div class="cipher-section-box">
+            <div class="column">
+              <div class="column-1">
+                <h3>Message to Encrypt</h3>
+                <textarea id="encryptMessage" name="encryptMessage" rows="4" cols="50" placeholder="Enter the message to encrypt..."></textarea>
+                <div class="key-box">
+                  <label for="encryptMessage">Encryption Key</label>
+                  <input type="password" id="encryptionKey" name="encryptionKey" placeholder="Enter encryption key"><br><br> 
                 </div>
-                <div class="column-2">
-                    <h1>Column 2</h1>
+                <div class="button-box">
+                  <button type="submit" id="encryptButton">Encrypt</button>
+                  <button type="button" id="copyEncryptionButton">Copy Encryption</button>
                 </div>
+                <textarea id="encryptedMessage" name="encryptedMessage" rows="4" cols="50"></textarea>
+              </div>
+              <div class="column-2">
+                <h3>Message to Decrypt</h3>
+                <textarea id="decryptMessage" name="decryptMessage" rows="4" cols="50" placeholder="Enter the message to decrypt..."></textarea>
+                <div class="key-box">
+                  <label for="decryptMessage">Decryption Key</label>
+                  <input type="password" id="decryptionKey" name="decryptionKey" placeholder="Enter decryption key"><br><br> 
+                </div>
+                <div class="button-box">
+                  <button type="submit" id="decryptButton">Decrypt</button>
+                  <button type="button" id="copydecryptionButton">Copy Decryption</button>
+                </div>
+                <textarea id="decryptedMessage" name="decryptedMessage" rows="4" cols="50"></textarea>
+              </div>
             </div>
+            <div class="algorithm-option-box">
+              <label for="chooseAlgorithm">Choose Algorithm</label>
+              <select id="encryptionMethod" name="encryptionMethod">
+                <option value="aes">AES (Advanced Encryption Standard)</option>
+                <option value="rsa">RSA (Rivest-Shamir-Adleman)</option>
+                <option value="des">DES (Data Encryption Standard)</option>
+              </select>
+            </div>
+          </div>
         </div>
     </section>
   </body>
