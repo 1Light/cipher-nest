@@ -11,47 +11,110 @@
     <link rel="icon" href="{% static 'images/favicon.png' %}" />
   </head>
   <body>
-    <section class="cipher-section">
+      <section class="cipher-section">
         <div class="container">
           <div class="cipher-section-box">
+            <!-- Form for Encryption -->
             <div class="column">
-              <div class="column-1">
-                <h3>Message to Encrypt</h3>
-                <textarea id="encryptMessage" name="encryptMessage" rows="4" cols="50" placeholder="Enter the message to encrypt..."></textarea>
-                <div class="key-box">
-                  <label for="encryptMessage">Encryption Key</label>
-                  <input type="password" id="encryptionKey" name="encryptionKey" placeholder="Enter encryption key"><br><br> 
+              <form action="{% url 'encryption:encrypt' %}" method="POST" id="encryptionForm">
+                {% csrf_token %}
+                <div class="column-1">
+                  <h5>Message to Encrypt</h5>
+                  <textarea id="encryptMessage" name="encryptMessage" rows="4" cols="50" placeholder="Enter the message to encrypt..."></textarea>
+                  <div class="key-box inner-box">
+                    <label for="encryptionKey">Encryption Key</label>
+                    <input  id="encryptionKey" name="encryptionKey" placeholder="Enter encryption key">
+                    <button class="button" id="generateKeyButton">G</button>
+                    <button class="button" id="copyKey">CG</button>
+                  </div>
+
+                  <!-- Mode Selection (Hidden by Default) -->
+                  <div id="encryptionModeContainer" class="hidden mode-selection-box">
+                    <label for="encryptionMode">Encryption Mode</label>
+                    <select id="encryptionMode" name="encryptionMode">
+                      <option value="ECB">ECB</option>
+                      <option value="CBC">CBC</option>
+                      <option value="CFB">CFB</option>
+                      <option value="CTR">CTR</option>
+                    </select>
+                  </div>
+
+                  <!-- IV Input (Hidden by Default) -->
+                  <div id="encryptionIVContainer" class="hidden iv-input-box">
+                    <label for="encryptionIV">Initialization Vector (IV)</label>
+                    <input type="text" id="encryptionIV" name="encryptionIV" placeholder="Enter IV">
+                    <button type="button" class="button" id="generateIVButton">IV</button>
+                    <button type="button" class="button" id="copyIv">CIV</button>
+                  </div>
+
+                  <!-- Hidden encryptionMethod for Encryption -->
+                  <input type="hidden" id="hiddenEncryptionMethod" name="hiddenEncryptionMethod" value="">
+
+                  <div class="button-box">
+                    <button type="submit" id="encryptButton">Encrypt</button>
+                    <button type="button" id="copyEncryptionButton">Copy Encryption</button>
+                  </div>
+                  <textarea id="encryptedMessage" name="encryptedMessage" rows="4" cols="50"></textarea>
                 </div>
-                <div class="button-box">
-                  <button type="submit" id="encryptButton">Encrypt</button>
-                  <button type="button" id="copyEncryptionButton">Copy Encryption</button>
+              </form>
+
+              <!-- Form for Decryption -->
+              <form action="{% url 'encryption:decrypt' %}" method="POST" id="decryptionForm">
+                {% csrf_token %}
+                <div class="column-2">
+                  <h5>Message to Decrypt</h5>
+                  <textarea id="decryptMessage" name="decryptMessage" rows="4" cols="50" placeholder="Enter the message to decrypt..."></textarea>
+                  <div class="key-box inner-box">
+                    <label for="decryptionKey">Decryption Key</label>
+                    <input type="password" id="decryptionKey" name="decryptionKey" placeholder="Enter decryption key"><br><br> 
+                  </div>
+
+                  <!-- Mode Selection for Decryption (Hidden by Default) -->
+                  <div id="decryptionModeContainer" class="hidden mode-selection-box inner-box">
+                    <label for="decryptionMode">Decryption Mode</label>
+                    <select id="decryptionMode" name="decryptionMode">
+                      <option value="ECB">ECB</option>
+                      <option value="CBC">CBC</option>
+                      <option value="CFB">CFB</option>
+                      <option value="CTR">CTR</option>
+                    </select>
+                  </div>
+
+                  <!-- IV Input for Decryption (Hidden by Default) -->
+                  <div id="decryptionIVContainer" class="hidden iv-input-box inner-box">
+                    <label for="decryptionIV">Initialization Vector (IV)</label>
+                    <input type="text" id="decryptionIV" name="decryptionIV" placeholder="Enter IV">
+                  </div>
+
+                  <!-- Hidden encryptionMethod for Decryption form -->
+                  <input type="hidden" id="hiddenDecryptionMethod" name="hiddenDecryptionMethod" value="">
+
+                  <div class="button-box">
+                    <button type="submit" id="decryptButton">Decrypt</button>
+                    <button type="button" id="copyDecryptionButton">Copy Decryption</button>
+                  </div>
+                  <textarea id="decryptedMessage" name="decryptedMessage" rows="4" cols="50"></textarea>
                 </div>
-                <textarea id="encryptedMessage" name="encryptedMessage" rows="4" cols="50"></textarea>
-              </div>
-              <div class="column-2">
-                <h3>Message to Decrypt</h3>
-                <textarea id="decryptMessage" name="decryptMessage" rows="4" cols="50" placeholder="Enter the message to decrypt..."></textarea>
-                <div class="key-box">
-                  <label for="decryptMessage">Decryption Key</label>
-                  <input type="password" id="decryptionKey" name="decryptionKey" placeholder="Enter decryption key"><br><br> 
-                </div>
-                <div class="button-box">
-                  <button type="submit" id="decryptButton">Decrypt</button>
-                  <button type="button" id="copydecryptionButton">Copy Decryption</button>
-                </div>
-                <textarea id="decryptedMessage" name="decryptedMessage" rows="4" cols="50"></textarea>
-              </div>
+              </form>
             </div>
             <div class="algorithm-option-box">
-              <label for="chooseAlgorithm">Choose Algorithm</label>
+              <label for="encryptionMethod">Choose Algorithm</label>
               <select id="encryptionMethod" name="encryptionMethod">
+                <option value="otp" selected>OTP (One-Time Pad)</option>
                 <option value="aes">AES (Advanced Encryption Standard)</option>
-                <option value="rsa">RSA (Rivest-Shamir-Adleman)</option>
-                <option value="des">DES (Data Encryption Standard)</option>
+                <option value="des">3DES (Triple Data Encryption Standard)</option>
               </select>
             </div>
           </div>
         </div>
-    </section>
+      </section>
+    <script type="text/javascript">
+        // Pass the URL to a JavaScript variable
+        var generateKeyUrl = "{% url 'encryption:generate-key' %}";
+        var generateIvUrl = "{% url 'encryption:generate-iv' %}";
+        var encryptUrl = "{% url 'encryption:encrypt' %}";
+        var decryptUrl = "{% url 'encryption:decrypt' %}";
+    </script>
+    <script src="{% static 'js/cipher.js' %}"></script>
   </body>
 </html>
