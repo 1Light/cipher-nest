@@ -11862,7 +11862,7 @@ textarea.form-control-lg {
   gap: 2rem;
 }
 .cipher-section-box .column-1, .cipher-section-box .column-2 {
-  border: 2px solid #00aeff;
+  border: 2px solid #37A6A0;
   min-width: 45%;
   height: 100%;
   display: flex;
@@ -11924,4 +11924,106 @@ textarea.form-control-lg {
   width: 50%;
   justify-content: space-between;
   align-items: center;
+}
+
+.intro-section .navbar {
+  height: 3rem;
+  border-radius: 110px;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+.intro-section .navbar .logo-box {
+  display: flex;
+  margin-left: 7rem;
+  gap: 1rem;
+}
+.intro-section .navbar .logo-box i {
+  font-size: 2rem;
+  color: #37A6A0;
+}
+.intro-section .navbar .logo-box h3 {
+  color: #37A6A0;
+}
+.intro-section-box {
+  height: 110vh;
+  margin-top: 6rem;
+  position: relative;
+}
+.intro-section-box .intro-text {
+  position: absolute;
+  top: 20%;
+  left: 2%;
+  display: flex;
+  width: 20rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #37A6A0;
+}
+.intro-section-box .intro-text h1 span {
+  display: block;
+  margin-bottom: 0;
+}
+.intro-section-box .intro-text p {
+  margin-left: 1rem;
+}
+.intro-section-box .intro-text .learn-more-btn {
+  border: 2px solid #37A6A0;
+  background-color: #fff;
+  height: 2.5rem;
+  width: 7rem;
+  color: #37A6A0;
+  text-decoration: none;
+  position: relative;
+}
+.intro-section-box .intro-text .learn-more-btn p {
+  position: absolute;
+  top: 11%;
+  left: 0;
+}
+.intro-section-box .img-box {
+  height: 100%;
+  width: 100%;
+}
+.intro-section-box .img-box img {
+  width: 100%;
+  height: 100%;
+}
+
+.feature-section {
+  margin-top: 5rem;
+}
+.feature-section h1 {
+  text-align: center;
+  color: #37A6A0;
+  margin-bottom: 3rem;
+}
+.feature-section-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70vh;
+}
+.feature-section-box .box {
+  border: 2px solid #37A6A0;
+  height: 100%;
+  flex-basis: 27%;
+  border-radius: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: large;
+}
+.feature-section-box .box h3 {
+  font-weight: bold;
+  color: #37A6A0;
+}
+.feature-section-box .box li {
+  list-style-type: upper-roman;
+  line-height: 2rem;
 }/*# sourceMappingURL=style.css.map */

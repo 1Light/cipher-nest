@@ -2,12 +2,12 @@
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 // My Theme Colors
-$blue: #00aeff;
-$white: #fff;
+$light-green: #32CD32;
+$dark-green: #37A6A0;
 
 // Primary & Secondary
-$primary: $blue;
-$secondary: $white;
+$primary: $dark-green;
+$secondary: $light-green;
 
 // Import White & Gray
 $white:    #fff;

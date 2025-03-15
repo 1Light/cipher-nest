@@ -9,8 +9,66 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}" />
     <link rel="icon" href="{% static 'images/favicon.png' %}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   </head>
   <body>
+      <section class="intro-section">
+        <div class="container">
+          <nav class="navbar">
+            <div class="logo-box">
+              <i class="fa-solid fa-lock"></i>
+              <h3>Cipher Nest</h3>
+            </div>
+          </nav>
+          <div class="intro-section-box">
+            <div class="intro-text">
+              <h1>
+                <span>Personal</span>
+                <span>Data Protection</span>
+              </h1>
+              <p>Keep your passwords private and protected. Simple, fast, and effective encryption for your texts. </p>
+              <a type="button" href="#feature-section" class="learn-more-btn rounded-pill"><p>Learn More</p></a>
+            </div>
+            <div class="img-box">
+              <img src="{% static 'images/intro-image4.png' %}" alt="Intro Image">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="feature-section" id="feature-section">
+        <div class="container">
+          <h1>Encryption Methods Overview</h1>
+          <div class="feature-section-box">
+            <div class="box-1 box">
+              <h3>AES</h3>
+              <ul>
+                <li>Block Size: 128-bit</li>
+                <li>Key Lengths: 128, 192, 256-bit</li>
+                <li>Speed: Fast & Efficient</li>
+                <li>Security: Highly Secure</li>
+              </ul>
+            </div>
+            <div class="box-2 box">
+              <h3>OTP</h3>
+              <ul>
+                <li>Security: Unbreakable</li>
+                <li>Key: Same length as message</li>
+                <li>High-security communication</li>
+                <li>Key management is difficult</li>
+              </ul>
+            </div>
+            <div class="box-3 box">
+              <h3>3DES</h3>
+              <ul>
+                <li>Encryption: 3x DES encryption</li>
+                <li>Key Lengths: 112-bit, 168-bit</li>
+                <li>Speed: Slower than AES</li>
+                <li>Security: Strong but outdated</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
       <section class="cipher-section">
         <div class="container">
           <div class="cipher-section-box">
