@@ -11853,8 +11853,8 @@ textarea.form-control-lg {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  height: 95vh;
-  padding: 2.5rem;
+  height: 100vh;
+  padding: 2rem;
 }
 .cipher-section-box .column {
   display: flex;
@@ -11868,7 +11868,7 @@ textarea.form-control-lg {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 1rem;
 }
 .cipher-section-box .column-1 textarea, .cipher-section-box .column-2 textarea {
   margin-top: 1rem;
@@ -11884,6 +11884,7 @@ textarea.form-control-lg {
 .cipher-section-box .column-1 .key-box input, .cipher-section-box .column-2 .key-box input {
   display: block;
   margin-left: 5rem;
+  width: 12rem;
 }
 .cipher-section-box .column-1 .button-box, .cipher-section-box .column-2 .button-box {
   display: flex;
@@ -11891,6 +11892,32 @@ textarea.form-control-lg {
   align-items: center;
   width: 100%;
   margin-top: 1rem;
+}
+.cipher-section-box .column-1 .mode-selection-box, .cipher-section-box .column-2 .mode-selection-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.cipher-section-box .column-1 .mode-selection-box select, .cipher-section-box .column-2 .mode-selection-box select {
+  display: block;
+  width: 12rem;
+  margin-right: 0.4rem;
+}
+.cipher-section-box .column-1 .iv-input-box, .cipher-section-box .column-2 .iv-input-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.cipher-section-box .column-1 .iv-input-box input, .cipher-section-box .column-2 .iv-input-box input {
+  display: block;
+  margin-right: 0.4rem;
+  width: 12rem;
+}
+.cipher-section-box .column-1 .hidden, .cipher-section-box .column-2 .hidden {
+  display: none;
 }
 .cipher-section-box .algorithm-option-box {
   display: flex;
