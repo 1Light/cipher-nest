@@ -2,7 +2,7 @@ from Crypto.Cipher import AES, DES3
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Util import Counter
 from hashlib import pbkdf2_hmac
-import os
+import binascii
 
 # === SECURE KEY DERIVATION FUNCTION ===
 def derive_key(password: str, salt: bytes, key_size: int) -> bytes:
@@ -10,111 +10,107 @@ def derive_key(password: str, salt: bytes, key_size: int) -> bytes:
     return pbkdf2_hmac('sha256', password.encode(), salt, 100000, dklen=key_size)
 
 # === AES DECRYPTION ===
-def decrypt_aes(ciphertext_hex, password, mode, iv=None):
-    """Decrypt data using AES with the specified mode."""
-    # Convert the ciphertext from hex to bytes
+def decrypt_aes(ciphertext_hex, password, mode):
+    """Decrypt AES-encrypted data, properly extracting salt, IV, and ciphertext."""
+    # Convert hex input to bytes
     ciphertext_bytes = bytes.fromhex(ciphertext_hex)
-    
-    # Extract the salt and ciphertext (first 16 bytes is salt, rest is ciphertext)
+
+    # Extract the salt (first 16 bytes)
     salt = ciphertext_bytes[:16]
-    ciphertext = ciphertext_bytes[16:]
-
-    # For CBC, CFB, and CTR modes, extract the IV from the ciphertext if not passed
-    if mode in ["CBC", "CFB", "CTR"] and iv is None:
-        iv = ciphertext[:16]
-        ciphertext = ciphertext[16:]  # Remaining part is the actual ciphertext
-
-    if iv is None:
-        iv = None  # ECB mode does not use an IV
-
-    # Derive the key from the password and salt
     key = derive_key(password, salt, 32)
 
-    # Ensure IV is in bytes and properly padded/truncated for the mode
+    # Determine IV length (16 bytes for CBC, CFB, and CTR modes; 0 for ECB)
+    iv_length = 16 if mode in ["CBC", "CFB", "CTR"] else 0
+
+    # Extract IV (next 16 bytes if applicable)
+    iv = ciphertext_bytes[16:16+iv_length] if iv_length else None
+
+    # Extract the actual ciphertext (remaining bytes)
+    ciphertext = ciphertext_bytes[16+iv_length:]
+
+    print(f"\n--- DEBUG INFO ---")
+    print(f"Salt (Hex): {binascii.hexlify(salt)}")
+    print(f"Derived Key (Hex): {binascii.hexlify(key)}")
     if iv:
-        if isinstance(iv, str):
-            iv = iv.encode()  # Convert string to bytes
-            print(iv)
-        elif isinstance(iv, bytes):
-            pass
-        else:
-            raise ValueError("Invalid IV format")
+        print(f"Extracted IV (Hex): {binascii.hexlify(iv)}")
+    print(f"Ciphertext (Hex): {binascii.hexlify(ciphertext)}")
 
-        # Pad/truncate the IV to 16 bytes (since AES requires 128-bit blocks)
-        iv = iv.ljust(16, b'\0') if len(iv) < 16 else iv[:16]
-
-    # Perform decryption based on the mode
+    # Perform decryption based on mode
     if mode == "ECB":
         cipher = AES.new(key, AES.MODE_ECB)
         plaintext = unpad(cipher.decrypt(ciphertext), AES.block_size)
     elif mode == "CBC":
-        if iv is None:
-            raise ValueError("IV is required for CBC mode")
         cipher = AES.new(key, AES.MODE_CBC, iv)
         plaintext = unpad(cipher.decrypt(ciphertext), AES.block_size)
-        print(plaintext)
     elif mode == "CFB":
-        if iv is None:
-            raise ValueError("IV is required for CFB mode")
         cipher = AES.new(key, AES.MODE_CFB, iv)
         plaintext = cipher.decrypt(ciphertext)
     elif mode == "CTR":
-        if iv is None:
-            raise ValueError("IV is required for CTR mode")
         ctr = Counter.new(128, initial_value=int.from_bytes(iv, 'big'))
         cipher = AES.new(key, AES.MODE_CTR, counter=ctr)
         plaintext = cipher.decrypt(ciphertext)
     else:
-        raise ValueError("Unsupported AES mode")
-    
-    try:
-        return plaintext.decode('utf-8')
-    except UnicodeDecodeError:
-        return plaintext.hex()
+        return "Unsupported AES mode"
+
+    print(f"Decrypted Bytes (Hex): {binascii.hexlify(plaintext)}")
+    decrypted_text = plaintext.decode("utf-8", errors="ignore")
+    print(f"Decrypted Text: {decrypted_text}")
+    print(f"--------------------\n")
+
+    return decrypted_text
+
 
 # === 3DES DECRYPTION ===
-def decrypt_3des(ciphertext_hex, password, mode, iv=None):
+def decrypt_3des(ciphertext_hex, password, mode):
     """Decrypt data using 3DES with the specified mode."""
+    # Convert the ciphertext from hex to bytes
     ciphertext_bytes = bytes.fromhex(ciphertext_hex)
-    salt, ciphertext = ciphertext_bytes[:16], ciphertext_bytes[16:]
-    key = derive_key(password, salt, 24)
+    
+    # Extract the salt (first 16 bytes) and the ciphertext (after salt)
+    salt = ciphertext_bytes[:16]
+    ciphertext = ciphertext_bytes[16:]
 
-    if mode in ["CBC", "CFB"] and iv is None:
-        iv, ciphertext = ciphertext[:8], ciphertext[8:]  # 3DES IV is 8 bytes
+    # Derive the key from the password and salt
+    key = derive_key(password, salt, 24)  # 3DES needs a 24-byte key
 
-    # Ensure IV is in bytes and properly padded/truncated for the mode
+    # Determine IV length (8 bytes for CBC, CFB, and CTR modes; 0 for ECB)
+    iv_length = 8 if mode in ["CBC", "CFB", "CTR"] else 0
+
+    # Extract IV (next 8 bytes if applicable)
+    iv = ciphertext[:iv_length] if iv_length else None
+    ciphertext = ciphertext[iv_length:]  # Remaining is ciphertext
+
+    print(f"\n--- DEBUG INFO ---")
+    print(f"Salt (Hex): {binascii.hexlify(salt)}")
+    print(f"Derived Key (Hex): {binascii.hexlify(key)}")
     if iv:
-        if isinstance(iv, str):
-            iv = iv.encode()  # Convert string to bytes
-        elif isinstance(iv, bytes):
-            pass
-        else:
-            raise ValueError("Invalid IV format")
+        print(f"Extracted IV (Hex): {binascii.hexlify(iv)}")
+    print(f"Ciphertext (Hex): {binascii.hexlify(ciphertext)}")
 
-        # Pad/truncate the IV to 8 bytes (since 3DES requires 64-bit blocks)
-        iv = iv.ljust(8, b'\0') if len(iv) < 8 else iv[:8]
-
+    # Perform decryption based on the mode
     if mode == "ECB":
         cipher = DES3.new(key, DES3.MODE_ECB)
         plaintext = unpad(cipher.decrypt(ciphertext), DES3.block_size)
     elif mode == "CBC":
-        if iv is None:
-            raise ValueError("IV is required for CBC mode")
         cipher = DES3.new(key, DES3.MODE_CBC, iv)
         plaintext = unpad(cipher.decrypt(ciphertext), DES3.block_size)
     elif mode == "CFB":
-        if iv is None:
-            raise ValueError("IV is required for CFB mode")
         cipher = DES3.new(key, DES3.MODE_CFB, iv)
         plaintext = cipher.decrypt(ciphertext)
     elif mode == "CTR":
-        ctr = Counter.new(64)
+        # Use the IV to initialize the counter for CTR mode
+        ctr = Counter.new(64, initial_value=int.from_bytes(iv, 'big'))
         cipher = DES3.new(key, DES3.MODE_CTR, counter=ctr)
         plaintext = cipher.decrypt(ciphertext)
     else:
         raise ValueError("Unsupported 3DES mode")
-    
-    return plaintext.decode()
+
+    print(f"Decrypted Bytes (Hex): {binascii.hexlify(plaintext)}")
+    decrypted_text = plaintext.decode("utf-8", errors="ignore")
+    print(f"Decrypted Text: {decrypted_text}")
+    print(f"--------------------\n")
+
+    return decrypted_text
 
 # === OTP DECRYPTION ===
 def decrypt_otp(ciphertext_hex, key):

@@ -23,9 +23,9 @@
                   <textarea id="encryptMessage" name="encryptMessage" rows="4" cols="50" placeholder="Enter the message to encrypt..."></textarea>
                   <div class="key-box inner-box">
                     <label for="encryptionKey">Encryption Key</label>
-                    <input  id="encryptionKey" name="encryptionKey" placeholder="Enter encryption key">
+                    <input type="password" id="encryptionKey" name="encryptionKey" placeholder="Enter encryption key">
                     <button class="button" id="generateKeyButton">G</button>
-                    <button class="button" id="copyKey">CG</button>
+                    <button type="button" class="button" id="copyKey">CG</button>
                   </div>
 
                   <!-- Mode Selection (Hidden by Default) -->
@@ -78,12 +78,6 @@
                       <option value="CFB">CFB</option>
                       <option value="CTR">CTR</option>
                     </select>
-                  </div>
-
-                  <!-- IV Input for Decryption (Hidden by Default) -->
-                  <div id="decryptionIVContainer" class="hidden iv-input-box inner-box">
-                    <label for="decryptionIV">Initialization Vector (IV)</label>
-                    <input type="text" id="decryptionIV" name="decryptionIV" placeholder="Enter IV">
                   </div>
 
                   <!-- Hidden encryptionMethod for Decryption form -->

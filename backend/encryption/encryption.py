@@ -13,7 +13,9 @@ def derive_key(password: str, salt: bytes, key_size: int) -> bytes:
 def encrypt_aes(data, password, mode, iv):
     """Encrypt data using AES with the specified mode."""
     salt = os.urandom(16)  # Generate a random salt for key derivation
-    key = derive_key(password, salt, 32)  # AES needs a 32-byte key
+    print(salt)
+    key = derive_key(password, salt, 32)
+    print(key)
     data = data.encode()
 
     # Ensure the IV is in bytes for non-ECB modes
@@ -37,15 +39,13 @@ def encrypt_aes(data, password, mode, iv):
         cipher = AES.new(key, AES.MODE_ECB)
         ciphertext = cipher.encrypt(pad(data, AES.block_size))
     elif mode == "CBC":
-        if not iv:
-            raise ValueError("IV is required for CBC mode")
         cipher = AES.new(key, AES.MODE_CBC, iv)
         ciphertext = cipher.encrypt(pad(data, AES.block_size))
     elif mode == "CFB":
         cipher = AES.new(key, AES.MODE_CFB, iv)
         ciphertext = cipher.encrypt(data)
     elif mode == "CTR":
-        ctr = Counter.new(128)
+        ctr = Counter.new(128, initial_value=int.from_bytes(iv, 'big'))
         cipher = AES.new(key, AES.MODE_CTR, counter=ctr)
         ciphertext = cipher.encrypt(data)
     else:
@@ -89,7 +89,7 @@ def encrypt_3des(data, password, mode, iv):
         cipher = DES3.new(key, DES3.MODE_CFB, iv)
         ciphertext = cipher.encrypt(data)
     elif mode == "CTR":
-        ctr = Counter.new(64)
+        ctr = Counter.new(64, initial_value=int.from_bytes(iv, 'big'))
         cipher = DES3.new(key, DES3.MODE_CTR, counter=ctr)
         ciphertext = cipher.encrypt(data)
     else:
@@ -105,8 +105,14 @@ def encrypt_otp(data, key):
     data = data.encode()
     key = key.encode()
 
+    # Handle the case where the key is shorter than the data
     if len(key) < len(data):
-        raise ValueError("Key must be at least as long as data for OTP encryption")
+        # Repeat the key to match the length of the data
+        key = (key * ((len(data) // len(key)) + 1))[:len(data)]
+    
+    # Handle the case where the key is longer than the data (truncate it)
+    elif len(key) > len(data):
+        key = key[:len(data)]
 
     ciphertext = bytes([d ^ k for d, k in zip(data, key)])
     return ciphertext.hex()
@@ -142,18 +148,18 @@ def generate_iv(algorithm: str, mode: str):
     :return: The generated IV as a byte string
     """
     if algorithm == "aes":
-        if mode in ["CBC", "CFB"]:
+        if mode in ["CBC", "CFB", "CTR"]:
             # AES requires a 128-bit IV (16 bytes) for CBC and CFB modes
             return os.urandom(16)  # Generate 16 random bytes
         else:
-            raise ValueError("Unsupported AES mode. Choose from 'CBC', 'CFB'.")
+            raise ValueError("Unsupported AES mode. Choose from 'CBC', 'CFB', 'CTR'.")
 
     elif algorithm == "des":
-        if mode in ["CBC", "CFB"]:
+        if mode in ["CBC", "CFB", "CTR"]:
             # 3DES requires a 64-bit IV (8 bytes) for CBC and CFB modes
             return os.urandom(8)  # Generate 8 random bytes
         else:
-            raise ValueError("Unsupported 3DES mode. Choose from 'CBC', 'CFB'.")
+            raise ValueError("Unsupported 3DES mode. Choose from 'CBC', 'CFB', 'CTR'.")
     
     else:
         raise ValueError("Unsupported algorithm. Please choose 'AES' or '3DES'.")

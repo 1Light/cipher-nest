@@ -19,6 +19,18 @@ def encrypt_view(request):
         key = request.POST.get('encryptionKey')
         message = request.POST.get('encryptMessage')
 
+        # Validate the message
+        if not message:
+            return JsonResponse({"error": "Please enter a message to encrypt."}, status=400)
+
+        # Validate the key
+        if not key:
+            return JsonResponse({"error": "Please enter an encryption key."}, status=400)
+
+        # Validate IV if necessary (only for modes other than ECB)
+        if mode != "ECB" and not iv:
+            return JsonResponse({"error": "Please enter an Initialization Vector (IV)."}, status=400)
+
         if message:
             if algorithm == "aes":
                 encrypted_message = encrypt_aes(message, key, mode, iv)
@@ -36,20 +48,26 @@ def encrypt_view(request):
 def decrypt_view(request):
     decrypted_message = ''
     if request.method == 'POST':
-        print(request.POST)
         algorithm = request.POST.get('hiddenDecryptionMethod')
-        mode = request.POST.get('decryptionMode')
-        iv = request.POST.get('decryptionIV')  
+        mode = request.POST.get('decryptionMode') 
         key = request.POST.get('decryptionKey')
         ciphertext = request.POST.get('decryptMessage')
 
+        # Validate the message
+        if not ciphertext:
+            return JsonResponse({"error": "Please enter a message to decrypt."}, status=400)
+
+        # Validate the key
+        if not key:
+            return JsonResponse({"error": "Please enter an decryption key."}, status=400)
+
         if ciphertext:
             if algorithm == "aes":
-                decrypted_message = decrypt_aes(ciphertext, key, mode, iv)  # Pass iv to decrypt_aes
+                decrypted_message = decrypt_aes(ciphertext, key, mode)
             elif algorithm == "des":
-                decrypted_message = decrypt_3des(ciphertext, key, mode, iv)  # Pass iv to decrypt_3des
+                decrypted_message = decrypt_3des(ciphertext, key, mode)
             elif algorithm == "otp":
-                decrypted_message = decrypt_otp(ciphertext, key)  # OTP doesn't require IV
+                decrypted_message = decrypt_otp(ciphertext, key)  
             else:
                 decrypted_message = "Invalid Algorithm"
         
