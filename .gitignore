@@ -31,5 +31,4 @@ yarn-debug.log
 yarn-error.log
 
 # Django static files (compiled from Sass, etc.)
-encryption/static/css/styles.css
-encryption/static/js/scripts.js
+frontend/static/css

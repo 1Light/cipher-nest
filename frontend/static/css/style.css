@@ -11845,7 +11845,12 @@ textarea.form-control-lg {
   }
 }
 .cipher-section {
-  margin: 15rem 0 5rem 0;
+  margin: 5rem 0 5rem 0;
+}
+.cipher-section h1 {
+  text-align: center;
+  color: #37A6A0;
+  margin-bottom: 3rem;
 }
 .cipher-section-box {
   display: flex;
@@ -11853,38 +11858,74 @@ textarea.form-control-lg {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  height: 100vh;
+  height: 120vh;
   padding: 2rem;
 }
 .cipher-section-box .column {
   display: flex;
   height: 100%;
-  gap: 2rem;
+  gap: 3rem;
 }
-.cipher-section-box .column-1, .cipher-section-box .column-2 {
-  border: 2px solid #37A6A0;
-  min-width: 45%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-}
-.cipher-section-box .column-1 textarea, .cipher-section-box .column-2 textarea {
-  margin-top: 1rem;
-  width: 100%;
-}
-.cipher-section-box .column-1 .key-box, .cipher-section-box .column-2 .key-box {
+.cipher-section-box .column-1 .key-box, .cipher-section-box .column-1 .iv-input-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   margin-top: 1rem;
 }
-.cipher-section-box .column-1 .key-box input, .cipher-section-box .column-2 .key-box input {
+.cipher-section-box .column-1 .key-box .inner-key-box, .cipher-section-box .column-1 .key-box .inner-iv-box, .cipher-section-box .column-1 .iv-input-box .inner-key-box, .cipher-section-box .column-1 .iv-input-box .inner-iv-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+}
+.cipher-section-box .column-1 .key-box .inner-key-box .key-btn, .cipher-section-box .column-1 .key-box .inner-key-box .iv-btn, .cipher-section-box .column-1 .key-box .inner-iv-box .key-btn, .cipher-section-box .column-1 .key-box .inner-iv-box .iv-btn, .cipher-section-box .column-1 .iv-input-box .inner-key-box .key-btn, .cipher-section-box .column-1 .iv-input-box .inner-key-box .iv-btn, .cipher-section-box .column-1 .iv-input-box .inner-iv-box .key-btn, .cipher-section-box .column-1 .iv-input-box .inner-iv-box .iv-btn {
+  display: flex;
+  justify-content: space-between;
+  width: 67%;
+}
+.cipher-section-box .column-1 .key-box .inner-key-box .key-btn button, .cipher-section-box .column-1 .key-box .inner-key-box .iv-btn button, .cipher-section-box .column-1 .key-box .inner-iv-box .key-btn button, .cipher-section-box .column-1 .key-box .inner-iv-box .iv-btn button, .cipher-section-box .column-1 .iv-input-box .inner-key-box .key-btn button, .cipher-section-box .column-1 .iv-input-box .inner-key-box .iv-btn button, .cipher-section-box .column-1 .iv-input-box .inner-iv-box .key-btn button, .cipher-section-box .column-1 .iv-input-box .inner-iv-box .iv-btn button {
+  border: 2px solid #37A6A0;
+  background-color: #fff;
+  color: #37A6A0;
+  border-radius: 5px;
+}
+.cipher-section-box .column-1 .key-box .inner-key-box .key-btn button i, .cipher-section-box .column-1 .key-box .inner-key-box .iv-btn button i, .cipher-section-box .column-1 .key-box .inner-iv-box .key-btn button i, .cipher-section-box .column-1 .key-box .inner-iv-box .iv-btn button i, .cipher-section-box .column-1 .iv-input-box .inner-key-box .key-btn button i, .cipher-section-box .column-1 .iv-input-box .inner-key-box .iv-btn button i, .cipher-section-box .column-1 .iv-input-box .inner-iv-box .key-btn button i, .cipher-section-box .column-1 .iv-input-box .inner-iv-box .iv-btn button i {
+  color: #37A6A0;
+}
+.cipher-section-box .column-1 .key-box .inner-key-box input, .cipher-section-box .column-1 .key-box .inner-iv-box input, .cipher-section-box .column-1 .iv-input-box .inner-key-box input, .cipher-section-box .column-1 .iv-input-box .inner-iv-box input {
   display: block;
   margin-left: 5rem;
-  width: 12rem;
+  width: 10rem;
+}
+.cipher-section-box .column-2 .key-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+.cipher-section-box .column-2 .key-box input {
+  display: block;
+  margin-left: 9rem;
+  width: 10rem;
+}
+.cipher-section-box .column-1, .cipher-section-box .column-2 {
+  border: 2px solid #37A6A0;
+  width: 35vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 10%;
+}
+.cipher-section-box .column-1 h5, .cipher-section-box .column-2 h5 {
+  color: #37A6A0;
+}
+.cipher-section-box .column-1 textarea, .cipher-section-box .column-2 textarea {
+  margin-top: 1rem;
+  width: 100%;
 }
 .cipher-section-box .column-1 .button-box, .cipher-section-box .column-2 .button-box {
   display: flex;
@@ -11893,28 +11934,21 @@ textarea.form-control-lg {
   width: 100%;
   margin-top: 1rem;
 }
+.cipher-section-box .column-1 .button-box button, .cipher-section-box .column-2 .button-box button {
+  border: 2px solid #37A6A0;
+  background-color: #fff;
+  color: #37A6A0;
+}
 .cipher-section-box .column-1 .mode-selection-box, .cipher-section-box .column-2 .mode-selection-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-top: 0.8rem;
 }
 .cipher-section-box .column-1 .mode-selection-box select, .cipher-section-box .column-2 .mode-selection-box select {
   display: block;
-  width: 12rem;
-  margin-right: 0.4rem;
-}
-.cipher-section-box .column-1 .iv-input-box, .cipher-section-box .column-2 .iv-input-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-top: 0.5rem;
-}
-.cipher-section-box .column-1 .iv-input-box input, .cipher-section-box .column-2 .iv-input-box input {
-  display: block;
-  margin-right: 0.4rem;
-  width: 12rem;
+  width: 10rem;
 }
 .cipher-section-box .column-1 .hidden, .cipher-section-box .column-2 .hidden {
   display: none;
@@ -11924,6 +11958,10 @@ textarea.form-control-lg {
   width: 50%;
   justify-content: space-between;
   align-items: center;
+  color: #37A6A0;
+}
+.cipher-section-box .algorithm-option-box h5 {
+  margin-top: 0.5rem;
 }
 
 .intro-section .navbar {
@@ -12026,4 +12064,70 @@ textarea.form-control-lg {
 .feature-section-box .box li {
   list-style-type: upper-roman;
   line-height: 2rem;
+}
+
+.footer {
+  padding: 1rem;
+  min-height: 21rem;
+  background: #1F3B4D;
+  font-family: "Poppins", sans-serif;
+}
+.footer .connect-with-us {
+  background: #495057;
+  border-radius: 7px;
+  border: 2px solid #fff;
+  display: flex;
+  row-gap: 0.3rem;
+  justify-content: space-around;
+  padding: 1rem;
+}
+.footer .connect-with-us-content {
+  color: #fff;
+}
+.footer .connect-with-us-icons {
+  cursor: pointer;
+}
+.footer .connect-with-us-icons a {
+  color: #37A6A0;
+  transition: 0.3s ease;
+}
+.footer .connect-with-us-icons a i {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+}
+.footer .connect-with-us-icons a:hover {
+  color: #fff;
+}
+.footer-column {
+  margin-top: 2rem;
+  display: flex;
+}
+.footer-column-resources {
+  display: flex;
+  justify-content: start;
+  column-gap: 1.4rem;
+  margin-left: 1rem;
+  overflow: hidden;
+}
+.footer-column-resources li {
+  list-style-type: none;
+}
+.footer-column-resources li a {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+.footer-column-resources li a:hover {
+  color: #37A6A0;
+  padding-left: 4px;
+}
+.footer-copyright {
+  color: #6c757d;
+}
+.footer-copyright a {
+  text-decoration: none;
+  color: #fff;
+}
+.footer-copyright a:hover {
+  color: #37A6A0;
 }/*# sourceMappingURL=style.css.map */
