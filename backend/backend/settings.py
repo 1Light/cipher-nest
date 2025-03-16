@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # Other apps
-    'backend.encryption',
+    'encryption',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +54,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "backend.backend.urls"
+ROOT_URLCONF = "backend.urls"
 
 TEMPLATES = [
     {
