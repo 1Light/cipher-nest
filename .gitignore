@@ -32,4 +32,3 @@ yarn-error.log
 
 # Django static files (compiled from Sass, etc.)
 frontend/static/css
-staticfiles/
