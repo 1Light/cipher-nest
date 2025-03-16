@@ -72,4 +72,4 @@ This project is licensed under the MIT License.
 
 ## Author
 - **Nasir A. Degu**  
-- Contact: [your.email@example.com](mailto:nasir.adem@outlook.com)
+- Contact: [nasir.adem@outlook.com](mailto:nasir.adem@outlook.com)
