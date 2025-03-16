@@ -23,6 +23,10 @@
             height: 100%;
             gap: 3rem;
 
+            h5 {
+                font-weight: bold;
+            }
+
             &-1 {
 
                 .key-box, .iv-input-box {
@@ -74,7 +78,7 @@
 
                     input {
                         display: block;
-                        margin-left: 9rem;
+                        margin-left: 8.5rem;
                         width: 10rem;
                     }
                 }
@@ -141,6 +145,7 @@
 
             h5 {
                 margin-top: 0.5rem;
+                font-weight: bold;
             }
         }
     }
