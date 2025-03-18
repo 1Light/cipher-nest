@@ -47,11 +47,10 @@ Cipher Nest is a web-based encryption and decryption tool that utilizes AES, 3DE
    ```bash
    python manage.py runserver
    ```
-6. **Install Frontend Dependencies** (Optional)
-   If using Node.js for frontend processing:
+6. **Install Frontend Dependencies**
    ```bash
    npm install
-   npm run build
+   npm run compile:sass
    ```
 
 ## Usage
