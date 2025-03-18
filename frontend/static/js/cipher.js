@@ -1,30 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
     const encryptionMethod = document.getElementById("encryptionMethod");
-    const generateIVButton = document.getElementById("generateIVButton")
-    const encryptionMode = document.getElementById("encryptionMode")
+    const generateIVButton = document.getElementById("generateIVButton");
+    const encryptionMode = document.getElementById("encryptionMode");
     const encryptionModeContainer = document.getElementById("encryptionModeContainer");
     const encryptionIVContainer = document.getElementById("encryptionIVContainer");
-    const decryptionMode = document.getElementById("decryptionMode")
     const decryptionModeContainer = document.getElementById("decryptionModeContainer");
-    const decryptionIVContainer = document.getElementById("decryptionIVContainer");
+    const encryptionKey = document.getElementById("encryptionKey");
 
-    encryptionMethod.addEventListener("change", function () {
-        if (this.value === "aes" || this.value === "des") {
+    // Function to handle method change logic
+    function handleEncryptionMethodChange() {
+        if (encryptionMethod.value === "aes" || encryptionMethod.value === "des") {
             encryptionModeContainer.classList.remove("hidden");
             decryptionModeContainer.classList.remove("hidden");
-        } else {
+            encryptionKey.readOnly = false;
+            encryptionKey.style.pointerEvents = 'auto';
+        } else if (encryptionMethod.value === "otp") {
             encryptionModeContainer.classList.add("hidden");
             decryptionModeContainer.classList.add("hidden");
+            encryptionKey.readOnly = true;
+            encryptionKey.style.pointerEvents = 'none';
+            console.log("OTP selected. Key input disabled.");
         }
-    });
+    }
 
+    // Initialize the state based on the current value of encryptionMethod
+    handleEncryptionMethodChange();
+
+    // Event listener for encryption method change
+    encryptionMethod.addEventListener("change", handleEncryptionMethodChange);
+
+    // Handle encryption mode change
     encryptionMode.addEventListener("change", function () {
         if (this.value === "CBC" || this.value == "CFB" || this.value == "CTR") {
             encryptionIVContainer.classList.remove("hidden");
-            generateIVButton.classList.remove("hidden")
+            generateIVButton.classList.remove("hidden");
         } else {
             encryptionIVContainer.classList.add("hidden");
-            generateIVButton.classList.add("hidden")
+            generateIVButton.classList.add("hidden");
         }
     });
 });
