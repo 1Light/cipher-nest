@@ -12,7 +12,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "compile:sass": "sass --watch scss:static/css"
+    "compile:sass": "sass --watch scss:static/css --poll"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
