@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             decryptionModeContainer.classList.add("hidden");
             encryptionKey.readOnly = true;
             encryptionKey.style.pointerEvents = 'none';
+            encryptionKey.value = "";
             console.log("OTP selected. Key input disabled.");
         }
     }
