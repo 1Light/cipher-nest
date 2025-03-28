@@ -83,10 +83,10 @@
                   <div class="key-box">
                     <label for="encryptionKey">Encryption Key</label>
                     <div class="inner-key-box">
-                      <input  id="encryptionKey" name="encryptionKey" placeholder="Enter encryption key">
+                      <input type="password" id="encryptionKey" name="encryptionKey" placeholder="Enter encryption key">
                       <div class="key-btn">
-                        <button class="button" id="generateKeyButton"><i class="fa-solid fa-key"></i></button>
-                        <button type="button" class="button" id="copyKey"><i class="fa-solid fa-copy"></i></button>
+                        <button class="button" id="generateKeyButton" data-toggle="tooltip" title="Generate Key"><i class="fa-solid fa-key"></i></button>
+                        <button type="button" class="button" id="copyKey" data-toggle="tooltip" title="Copy Key"><i class="fa-solid fa-copy"></i></button>
                       </div>
                     </div>
                   </div>
@@ -108,8 +108,8 @@
                     <div class="inner-iv-box">
                       <input type="text" id="encryptionIV" name="encryptionIV" placeholder="Enter IV">
                       <div class="iv-btn">
-                        <button type="button" class="button" id="generateIVButton"><i class="fa-solid fa-rotate-left"></i></button>
-                        <button type="button" class="button" id="copyIv"><i class="fa-solid fa-copy"></i></button>
+                        <button type="button" class="button" id="generateIVButton" data-toggle="tooltip" title="Generate IV"><i class="fa-solid fa-rotate-left"></i></button>
+                        <button type="button" class="button" id="copyIv" data-toggle="tooltip" title="Copy IV"><i class="fa-solid fa-copy"></i></button>
                       </div>
                     </div>
                   </div>

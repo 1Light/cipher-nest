@@ -12,7 +12,6 @@ def index(request):
 def encrypt_view(request):
     encrypted_message = ''
     if request.method == 'POST':
-        print(request.POST)
         algorithm = request.POST.get('hiddenEncryptionMethod')
         mode = request.POST.get('encryptionMode')
         iv = request.POST.get('encryptionIV')
@@ -41,7 +40,6 @@ def encrypt_view(request):
             else:
                 encrypted_message = "Invalid Algorithm"
 
-    print(encrypted_message)
     return JsonResponse({'encrypted_message': encrypted_message})
 
 # === Decryption View ===
@@ -70,8 +68,6 @@ def decrypt_view(request):
                 decrypted_message = decrypt_otp(ciphertext, key)  
             else:
                 decrypted_message = "Invalid Algorithm"
-        
-    print(decrypted_message)
 
     return JsonResponse({'decrypted_message': decrypted_message})
 
@@ -88,7 +84,6 @@ def generate_password_view(request):
 
             key = generate_password(algorithm, ciphertext_length)
 
-            print(key)
             return JsonResponse({"key": key.hex()}, status=200)  
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
