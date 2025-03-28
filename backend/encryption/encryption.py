@@ -36,6 +36,7 @@ def encrypt_aes(data, password, mode, iv):
             iv = iv[:16]  # Truncate IV to 16 bytes if it's too long
 
     if mode == "ECB":
+        print(key)
         cipher = AES.new(key, AES.MODE_ECB)
         ciphertext = cipher.encrypt(pad(data, AES.block_size))
     elif mode == "CBC":
@@ -117,7 +118,7 @@ def encrypt_otp(data, key):
     ciphertext = bytes([d ^ k for d, k in zip(data, key)])
     return ciphertext.hex()
 
-def generate_key(algorithm: str, ciphertext_length: int = None):
+def generate_password(algorithm: str, ciphertext_length: int = None):
     """
     Generates a secure key for the specified algorithm.
     

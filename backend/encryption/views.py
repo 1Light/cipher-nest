@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render
-from .encryption import encrypt_aes, encrypt_3des, encrypt_otp, generate_iv, generate_key
+from .encryption import encrypt_aes, encrypt_3des, encrypt_otp, generate_iv, generate_password
 from .decryption import decrypt_aes, decrypt_3des, decrypt_otp
 from django.http import JsonResponse
 
@@ -75,7 +75,7 @@ def decrypt_view(request):
 
     return JsonResponse({'decrypted_message': decrypted_message})
 
-def generate_key_view(request):
+def generate_password_view(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
@@ -86,7 +86,7 @@ def generate_key_view(request):
             if ciphertext_length:
                 ciphertext_length = int(ciphertext_length)
 
-            key = generate_key(algorithm, ciphertext_length)
+            key = generate_password(algorithm, ciphertext_length)
 
             print(key)
             return JsonResponse({"key": key.hex()}, status=200)  
