@@ -116,11 +116,12 @@
 
                   <!-- Hidden encryptionMethod for Encryption -->
                   <input type="hidden" id="hiddenEncryptionMethod" name="hiddenEncryptionMethod" value="">
-
-                  <textarea id="encryptedMessage" name="encryptedMessage" rows="4" cols="50"></textarea>
-                  <div class="button-box">
-                    <button type="submit" id="encryptButton" class="rounded-pill">Encrypt</button>
-                    <button type="button" id="copyEncryptionButton" class="rounded-pill">Copy Encryption</button>
+                  <div class="output-box">
+                    <textarea id="encryptedMessage" name="encryptedMessage" rows="4" cols="50"></textarea>
+                    <div class="button-box">
+                      <button type="submit" id="encryptButton" class="rounded-pill">Encrypt</button>
+                      <button type="button" id="copyEncryptionButton" class="rounded-pill">Copy Encryption</button>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -149,10 +150,12 @@
 
                   <!-- Hidden encryptionMethod for Decryption form -->
                   <input type="hidden" id="hiddenDecryptionMethod" name="hiddenDecryptionMethod" value="">
-                  <textarea id="decryptedMessage" name="decryptedMessage" rows="4" cols="50"></textarea>
-                  <div class="button-box">
-                    <button type="submit" id="decryptButton" class="rounded-pill">Decrypt</button>
-                    <button type="button" id="copyDecryptionButton" class="rounded-pill">Copy Decryption</button>
+                  <div class="output-box">
+                    <textarea id="decryptedMessage" name="decryptedMessage" rows="4" cols="50"></textarea>
+                    <div class="button-box">
+                      <button type="submit" id="decryptButton" class="rounded-pill">Decrypt</button>
+                      <button type="button" id="copyDecryptionButton" class="rounded-pill">Copy Decryption</button>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -163,6 +166,7 @@
                 <option value="otp" selected>OTP (One-Time Pad)</option>
                 <option value="aes">AES (Advanced Encryption Standard)</option>
                 <option value="des">3DES (Triple Data Encryption Standard)</option>
+                <option value="rsa">RSA (Rivest-Shamir-Adleman)</option>
               </select>
             </div>
           </div>

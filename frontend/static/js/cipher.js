@@ -4,23 +4,40 @@ document.addEventListener("DOMContentLoaded", function () {
     const encryptionMode = document.getElementById("encryptionMode");
     const encryptionModeContainer = document.getElementById("encryptionModeContainer");
     const encryptionIVContainer = document.getElementById("encryptionIVContainer");
+    const encryptionKeyContainer = document.querySelector(".key-box");
+    const decryptionKeyContainer = document.querySelector(".key-box.inner-box");
     const decryptionModeContainer = document.getElementById("decryptionModeContainer");
     const encryptionKey = document.getElementById("encryptionKey");
+    const keyButtons = document.querySelector(".key-btn"); 
 
     // Function to handle method change logic
     function handleEncryptionMethodChange() {
         if (encryptionMethod.value === "aes" || encryptionMethod.value === "des") {
             encryptionModeContainer.classList.remove("hidden");
             decryptionModeContainer.classList.remove("hidden");
+            encryptionKeyContainer.classList.remove("hidden");
+            decryptionKeyContainer.classList.remove("hidden");
             encryptionKey.readOnly = false;
             encryptionKey.style.pointerEvents = 'auto';
+            keyButtons.classList.remove("hidden");
         } else if (encryptionMethod.value === "otp") {
             encryptionModeContainer.classList.add("hidden");
             decryptionModeContainer.classList.add("hidden");
+            encryptionKeyContainer.classList.remove("hidden");
+            decryptionKeyContainer.classList.remove("hidden");
+            encryptionIVContainer.classList.add("hidden");
             encryptionKey.readOnly = true;
             encryptionKey.style.pointerEvents = 'none';
             encryptionKey.value = "";
-            console.log("OTP selected. Key input disabled.");
+            keyButtons.classList.remove("hidden");
+        } else if (encryptionMethod.value === "rsa") {
+            encryptionKeyContainer.classList.add("hidden");
+            decryptionKeyContainer.classList.add("hidden");
+            encryptionModeContainer.classList.add("hidden");
+            decryptionModeContainer.classList.add("hidden");
+            encryptionIVContainer.classList.add("hidden");
+            keyButtons.classList.add("hidden");
+            encryptionKey.value = "";
         }
     }
 
@@ -279,7 +296,7 @@ document.getElementById('encryptButton').addEventListener('click', function(even
     }
   
     // Check if encryption key is provided
-    if (!key) {
+    if (algorithm !== "rsa" && !key) {
       event.preventDefault(); // Prevent form submission
       alert("Please enter an encryption key.");
       return; // Stop further checks
@@ -306,9 +323,9 @@ document.getElementById('decryptButton').addEventListener('click', function(even
     }
   
     // Check if encryption key is provided
-    if (!key) {
+    if (algorithm !== "rsa" && !key) {
       event.preventDefault(); // Prevent form submission
-      alert("Please enter an decryption key.");
+      alert("Please enter a decryption key.");
       return; // Stop further checks
     }
   });

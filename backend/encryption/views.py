@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render
-from .encryption import encrypt_aes, encrypt_3des, encrypt_otp, generate_iv, generate_password
-from .decryption import decrypt_aes, decrypt_3des, decrypt_otp
+from .encryption import encrypt_aes, encrypt_3des, encrypt_otp, generate_iv, generate_password, rsa_encrypt, load_or_generate_keys
+from .decryption import decrypt_aes, decrypt_3des, decrypt_otp, rsa_decrypt
 from django.http import JsonResponse
 
 def index(request):
@@ -23,11 +23,11 @@ def encrypt_view(request):
             return JsonResponse({"error": "Please enter a message to encrypt."}, status=400)
 
         # Validate the key
-        if not key:
+        if algorithm != "rsa" and not key:
             return JsonResponse({"error": "Please enter an encryption key."}, status=400)
 
         # Validate IV if necessary (only for modes other than ECB)
-        if mode != "ECB" and not iv:
+        if mode != "ECB" and not iv and algorithm != "rsa":
             return JsonResponse({"error": "Please enter an Initialization Vector (IV)."}, status=400)
 
         if message:
@@ -37,6 +37,10 @@ def encrypt_view(request):
                 encrypted_message = encrypt_3des(message, key, mode, iv)
             elif algorithm == "otp":
                 encrypted_message = encrypt_otp(message, key)
+            elif algorithm == "rsa":
+                private_key, public_key = load_or_generate_keys()
+                print(public_key)
+                encrypted_message = rsa_encrypt(message, public_key)
             else:
                 encrypted_message = "Invalid Algorithm"
 
@@ -56,8 +60,8 @@ def decrypt_view(request):
             return JsonResponse({"error": "Please enter a message to decrypt."}, status=400)
 
         # Validate the key
-        if not key:
-            return JsonResponse({"error": "Please enter an decryption key."}, status=400)
+        if algorithm != "rsa" and not key:
+            return JsonResponse({"error": "Please enter a decryption key."}, status=400)
 
         if ciphertext:
             if algorithm == "aes":
@@ -66,6 +70,9 @@ def decrypt_view(request):
                 decrypted_message = decrypt_3des(ciphertext, key, mode)
             elif algorithm == "otp":
                 decrypted_message = decrypt_otp(ciphertext, key)  
+            elif algorithm == "rsa":
+                private_key, _ = load_or_generate_keys()
+                decrypted_message = rsa_decrypt(ciphertext, private_key)
             else:
                 decrypted_message = "Invalid Algorithm"
 

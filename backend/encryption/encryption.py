@@ -2,6 +2,9 @@ from Crypto.Cipher import AES, DES3
 from Crypto.Util.Padding import pad
 from Crypto.Util import Counter
 from hashlib import pbkdf2_hmac
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
+import base64
 import os
 
 # === SECURE KEY DERIVATION FUNCTION ===
@@ -164,3 +167,49 @@ def generate_iv(algorithm: str, mode: str):
     
     else:
         raise ValueError("Unsupported algorithm. Please choose 'AES' or '3DES'.")
+
+# === RAS ENCRYPTION ===
+
+KEYS_DIR = "./keys"
+
+def load_or_generate_keys():
+    # Ensure the keys directory exists
+    if not os.path.exists(KEYS_DIR):
+        os.makedirs(KEYS_DIR)
+
+    private_key_path = os.path.join(KEYS_DIR, "private_key.pem")
+    public_key_path = os.path.join(KEYS_DIR, "public_key.pem")
+
+    if os.path.exists(private_key_path) and os.path.exists(public_key_path):
+        # If the keys exist, load and return them
+        with open(private_key_path, "rb") as f:
+            private_key = RSA.import_key(f.read())
+        with open(public_key_path, "rb") as f:
+            public_key = RSA.import_key(f.read())
+    
+    else:
+
+        # If keys do not exist, generate new ones
+        key = RSA.generate(2048)
+        private_key = key
+        public_key = key.publickey()
+        
+        # Save the generated keys to files
+        with open(private_key_path, "wb") as f:
+            f.write(private_key.export_key())
+        with open(public_key_path, "wb") as f:
+            f.write(public_key.export_key())
+    print(type(public_key))
+        
+    return private_key, public_key
+
+def rsa_encrypt(plain_text, public_key):
+    # Create a cipher object using the public key
+    cipher = PKCS1_OAEP.new(public_key)
+    
+    # Encrypt the message
+    encrypted_message = cipher.encrypt(plain_text.encode())
+    
+    # Return the encrypted message encoded in base64 for easy storage or transmission
+    return base64.b64encode(encrypted_message).decode('utf-8')
+

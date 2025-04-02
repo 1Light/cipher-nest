@@ -2,6 +2,8 @@ from Crypto.Cipher import AES, DES3
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Util import Counter
 from hashlib import pbkdf2_hmac
+from Crypto.Cipher import PKCS1_OAEP
+import base64
 import binascii
 
 # === SECURE KEY DERIVATION FUNCTION ===
@@ -123,3 +125,16 @@ def decrypt_otp(ciphertext_hex, key):
 
     plaintext = bytes([c ^ k for c, k in zip(ciphertext, key)])
     return plaintext.decode()
+
+# === RAS ENCRYPTION ===
+def rsa_decrypt(encrypted_text, private_key):
+    # Decode the encrypted message from base64
+    encrypted_message = base64.b64decode(encrypted_text.encode())
+    
+    # Create a cipher object using the private key
+    cipher = PKCS1_OAEP.new(private_key)
+    
+    # Decrypt the message
+    decrypted_message = cipher.decrypt(encrypted_message).decode('utf-8')
+    
+    return decrypted_message
