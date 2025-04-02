@@ -1,10 +1,10 @@
 # Cipher Nest
 
 ## Overview
-Cipher Nest is a web-based encryption and decryption tool that utilizes AES, 3DES, and OTP encryption algorithms. It supports multiple encryption modes, including ECB, CBC, CFB, and CTR for AES and 3DES. The application is built using Django for the backend and a modern frontend stack including HTML, CSS, Bootstrap, Dart Sass, Autoprefixer, and PostCSS. It also features AJAX for real-time rendering without page reloads.
+Cipher Nest is a web-based encryption and decryption tool that supports multiple encryption algorithms including AES, 3DES, OTP, and RSA. It allows for various encryption modes, including ECB, CBC, CFB, and CTR for AES and 3DES. The application is built using Django for the backend and a modern frontend stack including HTML, CSS, Bootstrap, Dart Sass, Autoprefixer, and PostCSS. It also features AJAX for real-time rendering without page reloads.
 
 ## Features
-- **Encryption & Decryption**: Supports AES, 3DES, and OTP encryption methods.
+- **Encryption & Decryption**: Supports AES, 3DES, OTP, and RSA encryption methods.
 - **Multiple Modes**: AES and 3DES support ECB, CBC, CFB, and CTR modes.
 - **Real-Time Processing**: Uses AJAX for encryption and decryption without reloading the page.
 - **User-friendly Interface**: Built with Bootstrap for responsiveness and ease of use.
@@ -15,7 +15,7 @@ Cipher Nest is a web-based encryption and decryption tool that utilizes AES, 3DE
 ### Backend
 - Django (Python)
 - Django REST Framework
-- Cryptographic libraries for encryption/decryption
+- Cryptographic libraries for encryption/decryption (including RSA)
 
 ### Frontend
 - HTML, CSS, JavaScript
@@ -55,8 +55,9 @@ Cipher Nest is a web-based encryption and decryption tool that utilizes AES, 3DE
 
 ## Usage
 - Open `http://127.0.0.1:8000/` in your browser.
-- Select encryption algorithm (AES, 3DES, OTP).
-- Choose the encryption mode (ECB, CBC, CFB, CTR).
+- Select the encryption algorithm (AES, 3DES, OTP, RSA).
+- Choose the encryption mode (ECB, CBC, CFB, CTR) for AES and 3DES.
+- For RSA, you can encrypt with the public key and decrypt with the private key.
 - Enter plaintext or ciphertext for encryption/decryption.
 - Submit to get results in real-time without reloading.
 
