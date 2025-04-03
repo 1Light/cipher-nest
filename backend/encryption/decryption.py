@@ -126,7 +126,7 @@ def decrypt_otp(ciphertext_hex, key):
     plaintext = bytes([c ^ k for c, k in zip(ciphertext, key)])
     return plaintext.decode()
 
-# === RAS ENCRYPTION ===
+# === RAS DECRYPTION ===
 def rsa_decrypt(encrypted_text, private_key):
     # Decode the encrypted message from base64
     encrypted_message = base64.b64decode(encrypted_text.encode())
