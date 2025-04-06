@@ -138,3 +138,6 @@ def rsa_decrypt(encrypted_text, private_key):
     decrypted_message = cipher.decrypt(encrypted_message).decode('utf-8')
     
     return decrypted_message
+
+# === SIGNING WITH PUBLIC AND PRIVATE KEY ===
+# === COMING SOON ===
